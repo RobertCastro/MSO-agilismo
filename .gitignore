@@ -49,4 +49,5 @@ MANIFEST
 # Per-project virtualenvs
 venv*/
 hub*/
+prueba*/
 aplicacion.sqlite
