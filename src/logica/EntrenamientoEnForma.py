@@ -1,8 +1,4 @@
 from src.logica.FachadaEnForma import FachadaEnForma
-from src.modelo.declarative_base import Session
-from src.modelo.Persona import Persona
-
-
 
 class EntrenamientoEnForma(FachadaEnForma):
 
