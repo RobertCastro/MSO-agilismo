@@ -48,5 +48,5 @@ MANIFEST
 
 # Per-project virtualenvs
 venv*/
-github*/
+hub*/
 aplicacion.sqlite
