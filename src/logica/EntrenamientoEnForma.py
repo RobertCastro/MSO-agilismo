@@ -3,6 +3,7 @@ from src.modelo.declarative_base import Session
 from src.modelo.Persona import Persona
 from src.modelo.Ejercicio import Ejercicio
 import re
+import validators
 
 class EntrenamientoEnForma(FachadaEnForma):
 

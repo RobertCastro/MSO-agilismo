@@ -51,4 +51,9 @@ class TestValidarCrearEditarEjercicio(unittest.TestCase):
         resultado = entrenamiento_en_forma.validar_crear_editar_ejercicio("Correr", "descripcion!", "https://enlace.com", 200)
         self.assertNotEqual(resultado, "", "La descripción tiene caracteres no alfanumericos")
 
+    def test_validar_crear_editar_ejercicio_url_invalida(self):
+        entrenamiento_en_forma = EntrenamientoEnForma()
+        
+        resultado = entrenamiento_en_forma.validar_crear_editar_ejercicio("Nombre", "Descripción", "no es una url", 100)
+        self.assertEqual(resultado, "", "La URL no era válida.")
 
