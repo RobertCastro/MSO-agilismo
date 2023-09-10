@@ -2,6 +2,7 @@ from src.logica.FachadaEnForma import FachadaEnForma
 from src.modelo.declarative_base import Session
 from src.modelo.Persona import Persona
 from src.modelo.Ejercicio import Ejercicio
+import re
 
 class EntrenamientoEnForma(FachadaEnForma):
 
@@ -43,7 +44,7 @@ class EntrenamientoEnForma(FachadaEnForma):
         ejercicios_dict = [
             {
                 'id': ejercicio.id,
-                'nombre': ejercicio.nombre,
+                'nombre': re.sub(r'\W+', '', ejercicio.nombre),
                 'descripcion': ejercicio.descripcion,
                 'enlace': ejercicio.enlace,
                 'calorias': ejercicio.calorias
