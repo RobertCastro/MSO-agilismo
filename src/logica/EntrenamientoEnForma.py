@@ -61,4 +61,6 @@ class EntrenamientoEnForma(FachadaEnForma):
             return "Complete todos los campos"
         if len(nombre) > 200:   
             return "La extensión max de caracteres del nombre debe ser 200"
+        if len(descripcion) > 200:   
+            return "La extensión max de caracteres de la descripcion debe ser 200"
         return ""
