@@ -68,4 +68,6 @@ class EntrenamientoEnForma(FachadaEnForma):
             return "El nombre solo debe contener caracteres alfanuméricos"
         if not descripcion.isalnum():
             return "La descripcion solo debe contener caracteres alfanuméricos"
+        if not validators.url(enlace):
+            return "El enlace no es una URL válida"
         return ""
