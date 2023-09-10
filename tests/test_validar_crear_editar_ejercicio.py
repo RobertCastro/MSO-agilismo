@@ -39,4 +39,10 @@ class TestValidarCrearEditarEjercicio(unittest.TestCase):
         resultado = entrenamiento_en_forma.validar_crear_editar_ejercicio("Correr", descripcion_larga, "https://enlace.com", 200)
         self.assertNotEqual(resultado, "", "La descripción excede los 200 caracteres")
 
+    def test_validar_crear_editar_ejercicio_nombre_solo_alfanumerico(self):
+
+        entrenamiento_en_forma = EntrenamientoEnForma()
+        resultado = entrenamiento_en_forma.validar_crear_editar_ejercicio("Correr!", "descripcion", "https://enlace.com", 200)
+        self.assertNotEqual(resultado, "", "El nombre tiene caracteres no alfanumericos")
+
 
