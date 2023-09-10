@@ -38,7 +38,7 @@ class EntrenamientoEnForma(FachadaEnForma):
 
     def dar_ejercicios(self):
         session = Session()
-        ejercicios = session.query(Ejercicio).all()
+        ejercicios = session.query(Ejercicio).order_by(Ejercicio.nombre.asc()).all()
             
         ejercicios_dict = [
             {
