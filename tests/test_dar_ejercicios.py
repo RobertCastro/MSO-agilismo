@@ -39,3 +39,21 @@ class TestDarEjercicios(unittest.TestCase):
         dar_ejercicios = entrenamiento_en_forma.dar_ejercicios()
         nombre = [(ejercicio['nombre']) for ejercicio in dar_ejercicios]
         self.assertEqual(nombre, sorted(nombre), "La lista de ejercicios no está ordenada correctamente")
+
+    def test_nombre_solo_alfanumerico(self):
+        ejercicio_no_valido = Ejercicio(nombre="Correr!", descripcion="Correr por 20 minutos", enlace="https://youtube.com", calorias=200)
+        self.session.add(ejercicio_no_valido)
+        self.session.commit()
+
+        entrenamiento_en_forma = EntrenamientoEnForma()
+        ejercicios = entrenamiento_en_forma.dar_ejercicios()
+
+        for ejercicio in ejercicios:
+            self.assertTrue(ejercicio['nombre'].isalnum(), f"El nombre del ejercicio '{ejercicio['nombre']}' no es alfanumérico")
+
+        # Limpieza: eliminando los ejercicios creados para evitar efectos secundarios en otras pruebas
+        self.session.query(Ejercicio).delete()
+        self.session.commit()
+
+
+
