@@ -44,7 +44,7 @@ class EntrenamientoEnForma(FachadaEnForma):
         ejercicios_dict = [
             {
                 'id': ejercicio.id,
-                'nombre': re.sub(r'\W+', '', ejercicio.nombre),
+                'nombre': re.sub(r'\W+', '', ejercicio.nombre)[:200],
                 'descripcion': ejercicio.descripcion,
                 'enlace': ejercicio.enlace,
                 'calorias': ejercicio.calorias
