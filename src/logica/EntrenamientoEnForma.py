@@ -63,4 +63,6 @@ class EntrenamientoEnForma(FachadaEnForma):
             return "La extensión max de caracteres del nombre debe ser 200"
         if len(descripcion) > 200:   
             return "La extensión max de caracteres de la descripcion debe ser 200"
+        if not nombre.isalnum():
+            return "El nombre solo debe contener caracteres alfanuméricos"
         return ""
