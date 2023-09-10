@@ -51,9 +51,19 @@ class TestDarEjercicios(unittest.TestCase):
         for ejercicio in ejercicios:
             self.assertTrue(ejercicio['nombre'].isalnum(), f"El nombre del ejercicio '{ejercicio['nombre']}' no es alfanumérico")
 
-        # Limpieza: eliminando los ejercicios creados para evitar efectos secundarios en otras pruebas
-        self.session.query(Ejercicio).delete()
+    def test_dar_ejercicios_longitud_maxima_nombre(self):
+
+        nombre_largo = "z" * 201
+        ejercicio_nombre_largo = Ejercicio(nombre=nombre_largo, descripcion="Descripción", enlace="https://youtube.com", calorias=200)
+        self.session.add(ejercicio_nombre_largo)
         self.session.commit()
+
+        entrenamiento_en_forma = EntrenamientoEnForma()
+        ejercicios = entrenamiento_en_forma.dar_ejercicios()
+
+        for ejercicio in ejercicios:
+            self.assertTrue(len(ejercicio['nombre']) <= 200, f"El nombre del ejercicio '{ejercicio['nombre']}' excede los 200 caracteres")
+
 
 
 
