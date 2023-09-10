@@ -26,3 +26,16 @@ class TestDarEjercicios(unittest.TestCase):
         entrenamiento_en_forma = EntrenamientoEnForma()
         dar_ejercicios = entrenamiento_en_forma.dar_ejercicios()
         self.assertGreaterEqual(len(dar_ejercicios), 1, "La base de datos contiene al menos una persona")
+
+    def test_listar_ejercicios_por_nombre(self):
+
+        self.session.add(Ejercicio(nombre="Correr", descripcion="Correr por 20 minutos", enlace="https://youtube.com", calorias=200))
+        self.session.add(Ejercicio(nombre="Abdominales", descripcion="Abdominales por 20 minutos", enlace="https://youtube.com", calorias=250)) 
+        self.session.add(Ejercicio(nombre="Sentadilla", descripcion="Sentadilla por 10 minutos", enlace="https://youtube.com", calorias=350)) 
+        self.session.add(Ejercicio(nombre="Estocadas", descripcion="Estocadas por 20 minutos", enlace="https://youtube.com", calorias=250)) 
+        self.session.commit()
+
+        entrenamiento_en_forma = EntrenamientoEnForma()
+        dar_ejercicios = entrenamiento_en_forma.dar_ejercicios()
+        nombre = [(ejercicio['nombre']) for ejercicio in dar_ejercicios]
+        self.assertEqual(nombre, sorted(nombre), "La lista de ejercicios no está ordenada correctamente")
