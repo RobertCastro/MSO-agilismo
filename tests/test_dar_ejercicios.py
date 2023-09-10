@@ -11,10 +11,7 @@ class TestDarEjercicios(unittest.TestCase):
         self.session.query(Ejercicio).delete()  
         self.session.commit()
 
-    def test_listar_ejercicios_vacia(self):
-
-        self.session.add(Ejercicio(nombre="Correr", descripcion="Correr por 20 minutos", enlace="https://youtube.com", calorias=200)) 
-        self.session.commit()   
+    def test_listar_ejercicios_vacia(self):  
 
         entrenamiento_en_forma = EntrenamientoEnForma()
         dar_ejercicios = entrenamiento_en_forma.dar_ejercicios()
