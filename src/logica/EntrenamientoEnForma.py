@@ -58,7 +58,7 @@ class EntrenamientoEnForma(FachadaEnForma):
         return ejercicios_dict
 
     def validar_crear_editar_ejercicio(self, nombre, descripcion, enlace, calorias):
-        if not nombre or not descripcion or not enlace or calorias is None:
+        if not nombre or not descripcion or not enlace or not calorias is None:
             return "Complete todos los campos"
         if len(nombre) > 200:   
             return "La extensión max de caracteres del nombre debe ser 200"

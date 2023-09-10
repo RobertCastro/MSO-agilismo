@@ -8,7 +8,7 @@ class Ejercicio(Base):
     nombre = Column(String, index=True)
     descripcion = Column(String, index=True)
     enlace = Column(String, index=True)
-    calorias = Column(Float, index=True)
+    calorias = Column(Integer, index=True)
     repeticiones = Column(Integer, index=True)
     fecha = Column(Date, index=True)
     tiempo = Column(Time, index=True)
