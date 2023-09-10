@@ -57,4 +57,6 @@ class EntrenamientoEnForma(FachadaEnForma):
         return ejercicios_dict
 
     def validar_crear_editar_ejercicio(self, nombre, descripcion, enlace, calorias):
+        if not nombre or not descripcion or not enlace or calorias is None:
+            return "Complete todos los campos"
         return ""
