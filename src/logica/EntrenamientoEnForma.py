@@ -2,16 +2,14 @@ from src.logica.FachadaEnForma import FachadaEnForma
 from src.modelo.declarative_base import Session
 from src.modelo.Persona import Persona
 from src.modelo.Ejercicio import Ejercicio
-import re
 import validators
 
 class EntrenamientoEnForma(FachadaEnForma):
 
-
     def dar_personas(self):
 
         session = Session()
-        personas = session.query(Persona).all()
+        personas = session.query(Persona).order_by(Persona.nombre.asc(), Persona.apellido.asc()).all()
             
         personas_dict = [
             {
@@ -26,6 +24,29 @@ class EntrenamientoEnForma(FachadaEnForma):
 
         return personas_dict
     
+    
+    def dar_ejercicios(self):
+
+        session = Session()
+        ejercicios = session.query(Ejercicio).order_by(Ejercicio.nombre.asc()).all()
+
+ 
+        ejercicios_dict = [
+            {
+                'id': ejercicio.id,
+                'nombre': ejercicio.nombre,
+                'descripcion': ejercicio.descripcion,
+                'enlace': ejercicio.enlace,
+                'calorias': ejercicio.calorias
+            }
+            for ejercicio in ejercicios
+        ]
+
+
+        session.close()
+
+        return ejercicios_dict
+    
     def crear_ejercicio(self, nombre, descripcion, enlace, calorias):
         session = Session()
         nuevo_ejercicio = Ejercicio(
@@ -38,27 +59,11 @@ class EntrenamientoEnForma(FachadaEnForma):
         session.commit()
         session.close()
 
-    def dar_ejercicios(self):
-        session = Session()
-        ejercicios = session.query(Ejercicio).order_by(Ejercicio.nombre.asc()).all()
-            
-        ejercicios_dict = [
-            {
-                'id': ejercicio.id,
-                'nombre': re.sub(r'\W+', '', ejercicio.nombre)[:200],
-                'descripcion': ejercicio.descripcion,
-                'enlace': ejercicio.enlace,
-                'calorias': ejercicio.calorias
-            }
-            for ejercicio in ejercicios
-        ]
-
-        session.close()
-
-        return ejercicios_dict
-
     def validar_crear_editar_ejercicio(self, nombre, descripcion, enlace, calorias):
-        if not nombre or not descripcion or not enlace or not calorias is None:
+
+        session = Session()
+
+        if not nombre or not descripcion or not enlace or not calorias:
             return "Complete todos los campos"
         if len(nombre) > 200:   
             return "La extensión max de caracteres del nombre debe ser 200"
@@ -70,4 +75,10 @@ class EntrenamientoEnForma(FachadaEnForma):
             return "La descripcion solo debe contener caracteres alfanuméricos"
         if not validators.url(enlace):
             return "El enlace no es una URL válida"
+        
+        ejercicio_existente = session.query(Ejercicio).filter(Ejercicio.nombre == nombre).first()
+        if ejercicio_existente:
+            session.close()
+            return "Ya existe un ejercicio con este nombre"
+
         return ""

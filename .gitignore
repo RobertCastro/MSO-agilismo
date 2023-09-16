@@ -47,7 +47,6 @@ cover/*
 MANIFEST
 
 # Per-project virtualenvs
-venv*/
-hub*/
 prueba*/
+virtual*/
 aplicacion.sqlite
