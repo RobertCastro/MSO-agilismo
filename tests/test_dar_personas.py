@@ -10,6 +10,10 @@ class TestDarPersonas(unittest.TestCase):
         self.session = Session()
         self.session.query(Persona).delete()  
         self.session.commit()
+    
+    def tearDown(self):
+        self.session.query(Persona).delete()  
+        self.session.commit()
 
     def test_listar_personas_vacia(self):
 

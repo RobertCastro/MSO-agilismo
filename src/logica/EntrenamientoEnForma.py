@@ -30,22 +30,22 @@ class EntrenamientoEnForma(FachadaEnForma):
         session = Session()
         ejercicios = session.query(Ejercicio).order_by(Ejercicio.nombre.asc()).all()
 
- 
-        ejercicios_dict = [
-            {
-                'id': ejercicio.id,
-                'nombre': ejercicio.nombre,
-                'descripcion': ejercicio.descripcion,
-                'enlace': ejercicio.enlace,
-                'calorias': ejercicio.calorias
-            }
-            for ejercicio in ejercicios
-        ]
+        if len(ejercicios) > 0:
+            ejercicios_dict = [
+                {
+                    'id': ejercicio.id,
+                    'nombre': ejercicio.nombre,
+                    'descripcion': ejercicio.descripcion,
+                    'enlace': ejercicio.enlace,
+                    'calorias': ejercicio.calorias
+                }
+                for ejercicio in ejercicios
+            ]
+            return ejercicios_dict
+        
+        else:
+            return []
 
-
-        session.close()
-
-        return ejercicios_dict
     
     def crear_ejercicio(self, nombre, descripcion, enlace, calorias):
         session = Session()

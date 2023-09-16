@@ -4,7 +4,17 @@ from src.modelo.declarative_base import Session
 from src.modelo.Ejercicio import Ejercicio
 
 class TestValidarCrearEjercicio(unittest.TestCase):
+    
+    def setUp(self):
 
+        self.session = Session()
+        self.session.query(Ejercicio).delete()  
+        self.session.commit()
+        
+    def tearDown(self):
+        self.session = Session()
+        self.session.query(Ejercicio).delete()  
+        self.session.commit()
 
     def test_validar_crear_ejercicio_nombre_vacio(self):
         entrenamiento_en_forma = EntrenamientoEnForma()
@@ -61,10 +71,6 @@ class TestValidarCrearEjercicio(unittest.TestCase):
 
     def test_validar_crear_ejercicio_nombre_existente(self):
         entrenamiento_en_forma = EntrenamientoEnForma()
-
-        self.session = Session()
-        self.session.query(Ejercicio).delete()  
-        self.session.commit()
 
         self.session.add(Ejercicio(nombre="Correr", descripcion="Correr por 20 minutos", enlace="https://youtube.com", calorias=200)) 
         self.session.commit()
