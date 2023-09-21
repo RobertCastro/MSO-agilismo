@@ -44,8 +44,8 @@ jobs:
       
     - name: Merge to Develop
       run: |
-        git fetch origin develop:develop
-        git checkout develop
-        git merge --no-ff feature004
+        git fetch origin feature004:feature004
+        git checkout feature004
+        git merge --no-ff develop
         git push origin develop
       
