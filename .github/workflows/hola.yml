@@ -29,23 +29,15 @@ jobs:
     - name: Run tests
       run: python -m unittest discover -s tests
 
-  merge_to_develop:
-    needs: build_and_test
-    runs-on: ubuntu-latest
 
+  merge_to_develop:
+    runs-on: ubuntu-latest
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
-      
-    - name: Configure Git
-      run: |
-        git config user.name "Robert Castro"
-        git config user.email "oneroberth@gmail.com"
-      
-    - name: Merge to Develop
-      run: |
-        git fetch origin feature004:feature004
-        git checkout feature004
-        git merge --no-ff develop
-        git push origin develop
-      
+      - uses: actions/checkout@master
+
+      - name: Merge feature004 -> develop
+        uses: devmasx/merge-branch@master
+        with:
+          type: now
+          target_branch: develop
+          github_token: ${{ secrets.GITHUB_TOKEN }}
