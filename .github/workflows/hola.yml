@@ -4,9 +4,13 @@ on:
   push:
     branches:
       - feature004
+      - feature005
+      - feature006
   pull_request:
     branches:
       - feature004
+      - feature005
+      - feature006
 
 jobs:
   build_and_test:
@@ -29,10 +33,14 @@ jobs:
     - name: Run tests
       run: python -m unittest discover -s tests
 
-
   merge_to_develop:
+    needs: build_and_test
     runs-on: ubuntu-latest
     steps:
+
+      - name: Extract branch name
+        run: echo "BRANCH_NAME=$(echo ${GITHUB_REF#refs/heads/})" >> $GITHUB_ENV
+
       - uses: actions/checkout@master
 
       - name: Merge feature004 -> develop
@@ -40,4 +48,5 @@ jobs:
         with:
           type: now
           target_branch: develop
+          message: Merge ${{ env.BRANCH_NAME }} into develop
           github_token: ${{ secrets.MISO_SECRET }}
