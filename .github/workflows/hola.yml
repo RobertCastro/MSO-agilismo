@@ -37,12 +37,16 @@ jobs:
     needs: build_and_test
     runs-on: ubuntu-latest
     steps:
+
+      - name: Extract branch name
+        run: echo "BRANCH_NAME=$(echo ${GITHUB_REF#refs/heads/})" >> $GITHUB_ENV
+
       - uses: actions/checkout@master
 
       - name: Merge feature004 -> develop
         uses: devmasx/merge-branch@master
         with:
           type: now
-          target_branch: ${GITHUB_REF##*/}
-          message: Merge ${GITHUB_REF##*/} into develop
+          target_branch: ${{ env.BRANCH_NAME }}
+          message: Merge ${{ env.BRANCH_NAME }} into develop
           github_token: ${{ secrets.MISO_SECRET }}
