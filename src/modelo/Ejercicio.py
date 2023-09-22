@@ -1,5 +1,6 @@
 from sqlalchemy import Column, String, Float, Integer, Date, Time
 from .declarative_base import Base, engine
+from sqlalchemy.orm import relationship
 
 class Ejercicio(Base):
     __tablename__ = 'ejercicio'
@@ -9,8 +10,7 @@ class Ejercicio(Base):
     descripcion = Column(String, index=True)
     enlace = Column(String, index=True)
     calorias = Column(Integer, index=True)
-    repeticiones = Column(Integer, index=True)
-    fecha = Column(Date, index=True)
-    tiempo = Column(Time, index=True)
-
+    
+    Entrenamiento = relationship('Entrenamiento', back_populates='ejercicio')
+    
 Base.metadata.create_all(bind=engine)

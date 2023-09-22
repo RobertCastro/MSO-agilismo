@@ -1,5 +1,6 @@
 from sqlalchemy import Column, String, Date, Float, Integer, Boolean
 from .declarative_base import Base, engine
+from sqlalchemy.orm import relationship
 
 class Persona(Base):
     __tablename__ = 'persona'
@@ -14,10 +15,11 @@ class Persona(Base):
     pecho = Column(Float, index=True)
     cintura = Column(Float, index=True)
     pierna = Column(Float, index=True)
-    fecha_inicio = Column(Date, index=True)
-    fecha_retiro = Column(Date, index=True)
+    fecha_inicio = Column(String, index=True)
+    fecha_retiro = Column(String, index=True, default="")
     razon_retiro = Column(String, index=True)
     estado = Column(Boolean, index=True)
+    
+    Entrenamiento = relationship('Entrenamiento', cascade='all, delete-orphan') 
 
-# Crear todas las tablas
 Base.metadata.create_all(bind=engine)
