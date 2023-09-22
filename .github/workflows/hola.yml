@@ -40,14 +40,14 @@ jobs:
       - uses: actions/checkout@master
 
       - name: Merge ${{ env.BRANCH_NAME }} -> develop
-        # uses: devmasx/merge-branch@master
-        # with:
-        #   type: now
-        #   target_branch: develop
-        #   message: Merge ${{ env.BRANCH_NAME }} into develop
-        #   github_token: ${{ secrets.MISO_SECRET }}
-        uses: tukasz/direct-merge-action@master
+        uses: devmasx/merge-branch@master
         with:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          source-branch: ${{ env.BRANCH_NAME }}
-          target-branch: develop
+          type: now
+          target_branch: develop
+          message: Merge ${{ env.BRANCH_NAME }} into develop
+          github_token: ${{ secrets.MISO_SECRET }}
+        # uses: tukasz/direct-merge-action@master
+        # with:
+        #   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        #   source-branch: ${{ env.BRANCH_NAME }}
+        #   target-branch: develop
