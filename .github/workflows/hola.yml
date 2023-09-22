@@ -43,7 +43,7 @@ jobs:
 
       - uses: actions/checkout@master
 
-      - name: Merge feature004 -> develop
+      - name: Merge ${{ env.BRANCH_NAME }} -> develop
         uses: devmasx/merge-branch@master
         with:
           type: now

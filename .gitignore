@@ -49,4 +49,5 @@ MANIFEST
 # Per-project virtualenvs
 prueba*/
 virtual*/
+env*/
 aplicacion.sqlite
