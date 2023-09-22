@@ -3,14 +3,10 @@ name: CI
 on:
   push:
     branches:
-      - feature004
-      - feature005
-      - feature006
+      - 'feature**'
   pull_request:
     branches:
-      - feature004
-      - feature005
-      - feature006
+      - 'feature**'
 
 jobs:
   build_and_test:
