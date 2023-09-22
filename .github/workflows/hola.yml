@@ -39,10 +39,10 @@ jobs:
 
       - uses: actions/checkout@master
 
-      - name: Merge ${{ env.BRANCH_NAME }} -> develop
+      - name: Merge ${{ github.ref }} -> develop
         uses: devmasx/merge-branch@master
         with:
           type: now
           target_branch: develop
-          message: Merge ${{ env.BRANCH_NAME }} into develop
+          message: Merge ${{ github.ref }} into develop
           github_token: ${{ secrets.MISO_SECRET }}
