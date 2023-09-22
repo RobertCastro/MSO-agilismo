@@ -70,12 +70,10 @@ class EntrenamientoEnForma(FachadaEnForma):
             return "Complete todos los campos"
         if len(nombre) > 200:   
             return "La extensión max de caracteres del nombre debe ser 200"
+        if not re.match('^[a-zA-Z0-9 ]*$', nombre):
+            return "El nombre solo debe contener caracteres alfanuméricos y espacios"
         if len(descripcion) > 200:   
             return "La extensión max de caracteres de la descripcion debe ser 200"
-        if not nombre.isalnum():
-            return "El nombre solo debe contener caracteres alfanuméricos"
-        if not descripcion.isalnum():
-            return "La descripcion solo debe contener caracteres alfanuméricos"
         if not validators.url(enlace):
             return "El enlace no es una URL válida"
         
