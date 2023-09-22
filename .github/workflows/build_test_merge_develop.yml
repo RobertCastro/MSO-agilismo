@@ -10,6 +10,7 @@ on:
 
 jobs:
   build_and_test:
+    if: ${{ contains(github.event.head_commit.message, 'MERGE_TO_DEVELOP') }}
     runs-on: ubuntu-latest
 
     steps:
