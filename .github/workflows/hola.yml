@@ -45,4 +45,4 @@ jobs:
           type: now
           target_branch: ${GITHUB_REF##*/}
           message: Merge ${GITHUB_REF##*/} into develop
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          github_token: ${{ secrets.MISO_SECRET }}
