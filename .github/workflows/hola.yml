@@ -4,9 +4,13 @@ on:
   push:
     branches:
       - feature004
+      - feature005
+      - feature006
   pull_request:
     branches:
       - feature004
+      - feature005
+      - feature006
 
 jobs:
   build_and_test:
@@ -29,15 +33,19 @@ jobs:
     - name: Run tests
       run: python -m unittest discover -s tests
 
-
   merge_to_develop:
+    needs: build_and_test
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@master
-
-      - name: Merge feature004 -> develop
-        uses: devmasx/merge-branch@master
-        with:
-          type: now
-          target_branch: develop
-          github_token: ${{ secrets.MISO_SECRET }}
+      - name: Checkout code
+        uses: actions/checkout@v2
+        
+      - name: Merge feature branch -> develop 
+        run: |
+          git fetch origin develop:develop
+          git checkout develop
+          git merge --no-ff ${GITHUB_REF##*/} -m "Merge ${GITHUB_REF##*/} into develop"
+          git push origin develop
+        env:
+          GITHUB_TOKEN: ${{ secrets.MISO_SECRET }}
+  
