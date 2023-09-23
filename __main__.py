@@ -8,9 +8,9 @@ from src.Initialization import poblar_tabla_entrenamiento
 if __name__ == '__main__':
     # Punto inicial de la aplicación
 
-    poblar_tabla_personas()
-    poblar_tabla_ejercicio()
-    poblar_tabla_entrenamiento()
+    # poblar_tabla_personas()
+    # poblar_tabla_ejercicio()
+    # poblar_tabla_entrenamiento()
     logica = EntrenamientoEnForma()
 
     app = App_EnForma(sys.argv, logica)

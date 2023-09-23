@@ -1,10 +1,8 @@
 import unittest
 from faker import Faker
-import re
 from src.logica.EntrenamientoEnForma import EntrenamientoEnForma
 from src.modelo.declarative_base import Session
 from src.modelo.Ejercicio import Ejercicio
-import sys
 
 class TestEditarEjercicio(unittest.TestCase):
 
@@ -38,7 +36,26 @@ class TestEditarEjercicio(unittest.TestCase):
 
         self.assertEqual(result, "", "El ejercicio no existe")
     
+    def test_editar_ejercicio_nombre_igual(self):
+        nombre = self.faker.unique.name()
+        descripcion = self.faker.text(max_nb_chars=200)
+        enlace = self.faker.url()
+        calorias = self.faker.random_int(min=50, max=500)
+        
+        entrenamiento_en_forma = EntrenamientoEnForma()
+        
+        nuevo_ejercicio = Ejercicio(
+            nombre=nombre,
+            descripcion=descripcion,
+            enlace=enlace,
+            calorias=calorias
+        )
+        
+        self.session.add(nuevo_ejercicio) 
+        self.session.commit()
 
+        resultado = entrenamiento_en_forma.validar_ejercicio_existente(id_ejercicio=nuevo_ejercicio.id, nombre=nuevo_ejercicio.nombre)
+        self.assertEqual(resultado, "", "La validación detectó un ejercicio duplicado.")
 
 
 

@@ -77,16 +77,14 @@ class EntrenamientoEnForma(FachadaEnForma):
         if not validators.url(enlace):
             return "El enlace no es una URL válida"
         
-        ejercicio_existente = session.query(Ejercicio).filter(Ejercicio.nombre == nombre).first()
-        if ejercicio_existente:
-            session.close()
+        validacion = self.validar_ejercicio_existente(id_ejercicio=None, nombre=nombre)
+        if validacion != "":
             return "Ya existe un ejercicio con este nombre"
 
 
         return ""
     
     def dar_entrenamientos(self, id_persona):
-        print(id_persona)
         
         session = Session()
 
@@ -229,9 +227,8 @@ class EntrenamientoEnForma(FachadaEnForma):
         return resultadoFecha
 
     def editar_ejercicio(self, id_ejercicio, nombre, descripcion, enlace, calorias):
-        
-        session = Session()
 
+        session = Session()
         ejercicio = session.query(Ejercicio).filter_by(id=id_ejercicio).first()
 
         if ejercicio:
@@ -243,5 +240,19 @@ class EntrenamientoEnForma(FachadaEnForma):
             session.commit()
             return ""
         else:
-            return "No se pudo editar el ejercicio. OK"
-       
+            return "No se pudo editar el ejercicio"
+    
+    def validar_ejercicio_existente(self, id_ejercicio, nombre):
+        session = Session()
+        if id_ejercicio == None:
+            ejercicio_existente = session.query(Ejercicio).filter(Ejercicio.nombre == nombre).first()
+            if ejercicio_existente:
+                session.close()
+                return "Nombre de ejercicio ya existe"
+            else:
+                return ""
+        else:
+            ejercicio_existente = session.query(Ejercicio).filter(Ejercicio.id == id_ejercicio).first()
+            if ejercicio_existente:
+                session.close()
+                return ""
