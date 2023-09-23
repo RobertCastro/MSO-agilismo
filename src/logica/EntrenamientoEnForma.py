@@ -230,5 +230,18 @@ class EntrenamientoEnForma(FachadaEnForma):
 
     def editar_ejercicio(self, id_ejercicio, nombre, descripcion, enlace, calorias):
         
-        return "editar_ejercicio"
+        session = Session()
+
+        ejercicio = session.query(Ejercicio).filter_by(id=id_ejercicio).first()
+
+        if ejercicio:
+            ejercicio.nombre = nombre
+            ejercicio.descripcion = descripcion
+            ejercicio.enlace = enlace
+            ejercicio.calorias = calorias
+
+            session.commit()
+            return ""
+        else:
+            return "No se pudo editar el ejercicio. OK"
        

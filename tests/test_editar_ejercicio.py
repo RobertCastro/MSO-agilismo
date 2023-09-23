@@ -34,7 +34,7 @@ class TestEditarEjercicio(unittest.TestCase):
         nuevo_enlace = self.faker.url()
         nuevo_calorias = self.faker.random_int(min=10, max=500)
 
-        result = self.entrenamiento_en_forma.editar_ejercicio(id_ejercicio=999, nombre=nuevo_nombre, descripcion=nuevo_descripcion, enlace=nuevo_enlace, calorias=nuevo_calorias)
+        result = self.entrenamiento_en_forma.editar_ejercicio(id_ejercicio=ejercicio.id, nombre=nuevo_nombre, descripcion=nuevo_descripcion, enlace=nuevo_enlace, calorias=nuevo_calorias)
 
         self.assertEqual(result, "", "El ejercicio no existe")
     
