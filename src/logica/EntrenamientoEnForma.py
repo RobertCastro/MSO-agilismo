@@ -256,3 +256,6 @@ class EntrenamientoEnForma(FachadaEnForma):
             if ejercicio_existente:
                 session.close()
                 return ""
+    
+    def eliminar_ejercicio(self, id_ejercicio):
+        return ""
