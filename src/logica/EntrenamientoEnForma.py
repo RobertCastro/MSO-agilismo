@@ -256,3 +256,18 @@ class EntrenamientoEnForma(FachadaEnForma):
             if ejercicio_existente:
                 session.close()
                 return ""
+    
+    def eliminar_ejercicio(self, id_ejercicio):
+        session = Session()
+        ejercicio = session.query(Ejercicio).filter(Ejercicio.id == id_ejercicio).first()
+        entrenamientos_asociados = session.query(Entrenamiento).filter(Entrenamiento.ejercicio_id == id_ejercicio).all()
+
+        if entrenamientos_asociados != []:
+            return None
+        else:
+            if ejercicio:
+                session.delete(ejercicio)
+                session.commit()
+                return "Eliminado"
+            else:
+                return None
