@@ -86,6 +86,7 @@ class EntrenamientoEnForma(FachadaEnForma):
         return ""
     
     def dar_entrenamientos(self, id_persona):
+        print(id_persona)
         
         session = Session()
 
@@ -226,3 +227,8 @@ class EntrenamientoEnForma(FachadaEnForma):
             })
 
         return resultadoFecha
+
+    def editar_ejercicio(self, id_ejercicio, nombre, descripcion, enlace, calorias):
+        
+        return "editar_ejercicio"
+       
