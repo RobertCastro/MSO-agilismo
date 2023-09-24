@@ -20,7 +20,7 @@ jobs:
           git checkout -b release
           git push origin release
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.MISO_SECRET }}
 
   merge_to_main:
     needs: create_release
@@ -35,4 +35,4 @@ jobs:
           type: now
           target_branch: main
           message: Merge release into main
-          github_token: ${{ secrets.GITHUB_TOKEN  }}
+          github_token: ${{ secrets.MISO_SECRET  }}
