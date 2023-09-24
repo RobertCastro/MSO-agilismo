@@ -57,7 +57,7 @@ class TestEliminarEntrenamiento(unittest.TestCase):
 
     def crear_ejercicio_faker(self):
 
-        session = Session()
+        # session = Session()
             
         nombre = self.data_factory.unique.first_name()
         descripcion = self.data_factory.text(max_nb_chars=200)
@@ -71,12 +71,12 @@ class TestEliminarEntrenamiento(unittest.TestCase):
             calorias=calorias,
         )
         try:
-            session.add(nuevo_ejercicio)
-            session.commit()
+            self.session.add(nuevo_ejercicio)
+            self.session.commit()
             return nuevo_ejercicio
         except Exception as e:
-            session.rollback()
-            session.close()
+            self.session.rollback()
+            self.session.close()
             return ""
         
     def crear_entrenamiento_faker(self, persona_id, ejercicio_id):
