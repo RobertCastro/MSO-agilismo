@@ -16,8 +16,8 @@ jobs:
 
       - name: Create release branch from develop
         run: |
-          git checkout -b release/${{ github.sha }}
-          git push origin release/${{ github.sha }}
+          git checkout -b release
+          git push origin release
 
   merge_to_main:
     needs: create_release
@@ -32,4 +32,4 @@ jobs:
           type: now
           target_branch: main
           message: Merge release into main
-          github_token: ${{ secrets.MISO_SECRET }}
+          github_token: ${{ secrets.GITHUB_TOKEN  }}
