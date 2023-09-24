@@ -201,7 +201,14 @@ class EntrenamientoEnForma(FachadaEnForma):
         return round(imc, 2)
 
     def clasificarIMC(self, imc):
-        return ""
+        if imc < 18.5:
+            return "Bajo peso"
+        elif 18.5 <= imc < 24.9:
+            return "Peso saludable"
+        elif 25 <= imc < 29.9:
+            return "Sobrepeso"
+        else:
+            return "Obesidad"
 
     def agruparDatosEntrenamiento(self, entrenamientos):
         resultadosAgrupados = defaultdict(list)
