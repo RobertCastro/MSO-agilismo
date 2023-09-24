@@ -12,22 +12,10 @@ jobs:
 
     steps:
 
-      - name: Checkout code
-        uses: actions/checkout@v2
-      
-      # - name: Create release branch from develop
-      #   run: |
-      #     git checkout -b release
-      #     git push --set-upstream origin release
-      #   env:
-      #     github_token: ${{ secrets.MISO_SECRET }}
-      - name: create release branch
-        uses: peterjgrainger/action-create-branch@v2.2.0
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          branch: 'release'
-          sha: '${{ github.event.pull_request.head.sha }}'
+      - name: Crear rama
+        run: |
+          git checkout -b release
+          git push -f -u origin release
 
   merge_to_main:
     needs: create_release
