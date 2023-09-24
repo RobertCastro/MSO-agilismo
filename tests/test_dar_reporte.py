@@ -53,6 +53,12 @@ class TestDarReporte(unittest.TestCase):
     def test_calcular_imc(self):
         respuesta = self.en_forma.calcularIMC(self.persona.talla, self.persona.peso)
         self.assertNotEqual(respuesta, "", "Error en el cálculo del IMC")
+    
+    def test_clasificar_imc(self):
+        self.assertEqual(self.en_forma.clasificarIMC(16), "Bajo peso")
+        self.assertEqual(self.en_forma.clasificarIMC(22), "Peso saludable")
+        self.assertEqual(self.en_forma.clasificarIMC(27), "Sobrepeso")
+        self.assertEqual(self.en_forma.clasificarIMC(32), "Obesidad")
 
     def tearDown(self):
         self.session.query(Persona).filter(Persona.id == self.persona.id).delete()
