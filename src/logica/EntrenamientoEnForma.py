@@ -197,7 +197,8 @@ class EntrenamientoEnForma(FachadaEnForma):
         }
 
     def calcularIMC(self, talla, peso):
-        return ""
+        imc = peso / (talla ** 2)
+        return round(imc, 2)
 
     def clasificarIMC(self, imc):
         return ""
