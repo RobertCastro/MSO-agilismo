@@ -19,8 +19,6 @@ jobs:
         run: |
           git checkout -b release
           git push -f -u origin release
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN  }}
 
 
   merge_to_main:
