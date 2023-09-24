@@ -226,6 +226,23 @@ class EntrenamientoEnForma(FachadaEnForma):
 
         return resultadoFecha
 
+    def eliminar_entrenamiento(self, id_entrenamiento):
+            session = Session()
+
+            # Obtener el entrenamiento a eliminar
+            entrenamiento = session.query(Entrenamiento).filter(Entrenamiento.id == id_entrenamiento).first()
+
+            # Asegúrate de que el entrenamiento existe y está asociado a una persona y un ejercicio
+            if entrenamiento and entrenamiento.persona and entrenamiento.ejercicio:
+                # Asocia la persona y el ejercicio del entrenamiento a la sesión
+                session.add(entrenamiento.persona)
+                session.add(entrenamiento.ejercicio)
+
+                # Eliminar el entrenamiento
+                session.delete(entrenamiento)
+                session.commit()
+
+            session.close()
     def editar_ejercicio(self, id_ejercicio, nombre, descripcion, enlace, calorias):
 
         session = Session()
@@ -271,3 +288,65 @@ class EntrenamientoEnForma(FachadaEnForma):
                 return "Eliminado"
             else:
                 return None
+
+    def editar_ejercicio(self, id_ejercicio, nombre, descripcion, enlace, calorias):
+
+        session = Session()
+        ejercicio = session.query(Ejercicio).filter_by(id=id_ejercicio).first()
+
+        if ejercicio:
+            ejercicio.nombre = nombre
+            ejercicio.descripcion = descripcion
+            ejercicio.enlace = enlace
+            ejercicio.calorias = calorias
+
+            session.commit()
+            return ""
+        else:
+            return "No se pudo editar el ejercicio"
+    
+    def validar_ejercicio_existente(self, id_ejercicio, nombre):
+        session = Session()
+        if id_ejercicio == None:
+            ejercicio_existente = session.query(Ejercicio).filter(Ejercicio.nombre == nombre).first()
+            if ejercicio_existente:
+                session.close()
+                return "Nombre de ejercicio ya existe"
+            else:
+                return ""
+        else:
+            ejercicio_existente = session.query(Ejercicio).filter(Ejercicio.id == id_ejercicio).first()
+            if ejercicio_existente:
+                session.close()
+                return ""
+    
+    def eliminar_ejercicio(self, id_ejercicio):
+        session = Session()
+        ejercicio = session.query(Ejercicio).filter(Ejercicio.id == id_ejercicio).first()
+        entrenamientos_asociados = session.query(Entrenamiento).filter(Entrenamiento.ejercicio_id == id_ejercicio).all()
+
+        if entrenamientos_asociados != []:
+            return None
+        else:
+            if ejercicio:
+                session.delete(ejercicio)
+                session.commit()
+                return "Eliminado"
+            else:
+                return None
+    def eliminar_entrenamiento(self, id_entrenamiento):
+            session = Session()
+
+            entrenamiento = session.query(Entrenamiento).filter(Entrenamiento.id == id_entrenamiento).first()
+
+            # Asegúrate de que el entrenamiento existe y está asociado a una persona y un ejercicio
+            if entrenamiento and entrenamiento.persona and entrenamiento.ejercicio:
+                # Asocia la persona y el ejercicio del entrenamiento a la sesión
+                session.add(entrenamiento.persona)
+                session.add(entrenamiento.ejercicio)
+
+                # Eliminar el entrenamiento
+                session.delete(entrenamiento)
+                session.commit()
+
+            session.close()

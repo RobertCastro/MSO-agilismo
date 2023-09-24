@@ -7,7 +7,7 @@ from src.Initialization import poblar_tabla_entrenamiento
 
 if __name__ == '__main__':
     # Punto inicial de la aplicación
-    # Cambio de prueba, final para integración continua
+
     # poblar_tabla_personas()
     # poblar_tabla_ejercicio()
     # poblar_tabla_entrenamiento()

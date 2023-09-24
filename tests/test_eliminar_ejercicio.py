@@ -53,7 +53,7 @@ class TestEliminarEjercicio(unittest.TestCase):
     def test_eliminar_ejercicio(self):
         respuesta = self.entrenamiento_en_forma.eliminar_ejercicio(self.ejercicio.id)
         print(respuesta)
-        self.assertNotEqual(respuesta, "", "Ejercicio no eliminado")
+        self.assertNotEqual(respuesta, "", "Ejercicio con entrenamientos")
 
     def tearDown(self):
         self.session.query(Ejercicio).filter(Ejercicio.id == self.ejercicio.id).delete()
