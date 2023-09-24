@@ -7,12 +7,12 @@ from src.modelo.Persona import Persona
 from src.modelo.Entrenamiento import Entrenamiento
 import random
 
-class TestEliminarEjercicio(unittest.TestCase):
+class TestDarReporte(unittest.TestCase):
 
     def setUp(self):
         self.faker = Faker()
         self.session = Session()
-        self.entrenamiento_en_forma = EntrenamientoEnForma()
+        self.en_forma = EntrenamientoEnForma()
         
         self.persona = Persona(
             nombre=self.faker.first_name(),
@@ -50,11 +50,11 @@ class TestEliminarEjercicio(unittest.TestCase):
         self.session.commit()
 
 
-    def test_eliminar_ejercicio(self):
-        respuesta = self.entrenamiento_en_forma.eliminar_ejercicio(self.ejercicio.id)
-        self.assertNotEqual(respuesta, "", "Ejercicio con entrenamientos")
+    def test_calcular_imc(self):
+        respuesta = self.en_forma.calcularIMC(self.persona.talla, self.persona.peso)
+        self.assertNotEqual(respuesta, "", "Error en el cálculo del IMC")
 
     def tearDown(self):
-        self.session.query(Ejercicio).filter(Ejercicio.id == self.ejercicio.id).delete()
+        self.session.query(Persona).filter(Persona.id == self.persona.id).delete()
         self.session.commit()
         self.session.close()

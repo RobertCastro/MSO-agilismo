@@ -177,7 +177,7 @@ class EntrenamientoEnForma(FachadaEnForma):
         session = Session()
         persona = session.query(Persona).filter_by(id=id_persona).first()
 
-        imc = self.calcularIMC(persona)  # Todo: Implementar esta función
+        imc = self.calcularIMC(persona.talla, persona.peso)  # Todo: Implementar esta función
         clasificacionImc = self.clasificarIMC(imc)  # Todo: Implementar esta función
 
         resultadoFecha = self.agruparDatosEntrenamiento(persona.Entrenamiento)
@@ -196,11 +196,11 @@ class EntrenamientoEnForma(FachadaEnForma):
             }
         }
 
-    def calcularIMC(self, persona):
-        return ''
+    def calcularIMC(self, talla, peso):
+        return ""
 
     def clasificarIMC(self, imc):
-        return ''
+        return ""
 
     def agruparDatosEntrenamiento(self, entrenamientos):
         resultadosAgrupados = defaultdict(list)
