@@ -12,6 +12,8 @@ jobs:
 
     steps:
 
+      - uses: actions/checkout@v3
+
       - name: Crear rama
         run: |
           git checkout -b release
@@ -26,7 +28,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
 
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
       - name: Merge release -> main
         uses: devmasx/merge-branch@master
