@@ -6,8 +6,28 @@ on:
       - 'develop'
 
 jobs:
-  create_release:
+  build_and_test:
     if: ${{ contains(github.event.head_commit.message, 'RELEASE_MERGE_TO_MAIN') }}
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.11'
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+
+    - name: Run tests
+      run: python -m unittest discover -s tests
+  create_release:
+    needs: build_and_test
     runs-on: ubuntu-latest
 
     steps:
@@ -19,8 +39,6 @@ jobs:
         run: |
           git checkout -b release
           git push -f -u origin release
-
-
   merge_to_main:
     needs: create_release
     runs-on: ubuntu-latest
