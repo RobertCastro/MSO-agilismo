@@ -11,13 +11,16 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+
       - name: Checkout code
         uses: actions/checkout@v2
-
+      
       - name: Create release branch from develop
         run: |
           git checkout -b release
           git push origin release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   merge_to_main:
     needs: create_release
