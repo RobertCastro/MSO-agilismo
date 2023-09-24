@@ -1,0 +1,35 @@
+name: Merge a main
+
+on:
+  push:
+    branches:
+      - 'develop'
+
+jobs:
+  create_release:
+    if: ${{ contains(github.event.head_commit.message, 'RELEASE_MERGE_TO_MAIN') }}
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Create release branch from develop
+        run: |
+          git checkout -b release/${{ github.sha }}
+          git push origin release/${{ github.sha }}
+
+  merge_to_main:
+    needs: create_release
+    runs-on: ubuntu-latest
+    steps:
+
+      - uses: actions/checkout@v2
+
+      - name: Merge release -> main
+        uses: devmasx/merge-branch@master
+        with:
+          type: now
+          target_branch: main
+          message: Merge release into main
+          github_token: ${{ secrets.MISO_SECRET }}
