@@ -20,7 +20,7 @@ jobs:
           git remote set-url origin https://${{ secrets.GITHUB_TOKEN  }}@github.com/RobertCastro/MSO-agilismo.git
           git push -f -u origin release
         env:
-          github_token: ${{ secrets.GITHUB_TOKEN  }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN  }}
 
 
   merge_to_main:
@@ -36,4 +36,4 @@ jobs:
           type: now
           target_branch: main
           message: Merge release into main
-          github_token: ${{ secrets.GITHUB_TOKEN   }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN   }}
