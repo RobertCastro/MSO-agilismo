@@ -12,12 +12,12 @@ jobs:
 
     steps:
 
-      - uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v2
 
       - name: Crear rama
         run: |
           git checkout -b release
-          git remote set-url origin https://${{ secrets.GITHUB_TOKEN  }}@github.com/RobertCastro/MSO-agilismo.git
           git push -f -u origin release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN  }}
@@ -28,7 +28,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
 
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v2
 
       - name: Merge release -> main
         uses: devmasx/merge-branch@master
